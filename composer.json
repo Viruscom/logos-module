@@ -1,10 +1,10 @@
 {
-    "name": "nwidart/logos",
+    "name": "iwish/logos-module",
     "description": "",
     "authors": [
         {
-            "name": "Nicolas Widart",
-            "email": "n.widart@gmail.com"
+            "name": "test",
+            "email": "test@test.com"
         }
     ],
     "extra": {
@@ -19,5 +19,6 @@
         "psr-4": {
             "Modules\\Logos\\": ""
         }
-    }
+    },
+    "type": "laravel-module"
 }
