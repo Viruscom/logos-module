@@ -1,0 +1,13 @@
+{
+    "name": "Logos",
+    "alias": "logos",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Logos\\Providers\\LogosServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
