@@ -19,7 +19,7 @@ use Modules\Icons\Models\IconTranslation;
 
 class Logo extends Model implements TranslatableContract
 {
-    use Translatable, StorageActions, Scopes;
+    use Translatable, StorageActions, Scopes, CommonActions;
 
     public const FILES_PATH                           = "logos";
     const        LOGOS_AFTER_DESCRIPTION              = 0;
