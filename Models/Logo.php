@@ -3,19 +3,12 @@
 namespace Modules\Logos\Models;
 
 use App\Helpers\AdminHelper;
-use App\Helpers\FileDimensionHelper;
 use App\Traits\CommonActions;
 use App\Traits\Scopes;
 use App\Traits\StorageActions;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
-use Carbon\Carbon;
-use Exception;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use Modules\Icons\Models\Icon;
-use Modules\Icons\Models\IconTranslation;
 
 class Logo extends Model implements TranslatableContract
 {
@@ -30,7 +23,7 @@ class Logo extends Model implements TranslatableContract
     const        LOGOS_AFTER_ADDITIONAL_DESCRIPTION_5 = 5;
     const        LOGOS_AFTER_ADDITIONAL_DESCRIPTION_6 = 6;
 
-    public static string $LOGO_SYSTEM_IMAGE  = 'logo_img.png';
+    public static string $LOGO_SYSTEM_IMAGE  = 'logos_1_image.png';
     public static string $LOGO_RATIO         = '1/1';
     public static string $LOGO_MIMES         = 'jpg,jpeg,png,gif';
     public static string $LOGO_MAX_FILE_SIZE = '3000';
@@ -56,18 +49,6 @@ class Logo extends Model implements TranslatableContract
         return self::where('model', get_class($parentModel))
             ->where('model_id', $parentModel->id)
             ->where('main_position', $mainPosition)->where('active', true)->with('translations')->orderBy('position')->get();
-    }
-    public function getSystemImage(): string
-    {
-        return AdminHelper::getSystemImage(self::$LOGO_SYSTEM_IMAGE);
-    }
-    public function getFilepath($filename): string
-    {
-        return $this->getFilesPath() . $filename;
-    }
-    public function getFilesPath(): string
-    {
-        return self::FILES_PATH . '/' . $this->id . '/';
     }
     public static function getRequestData($request): array
     {
@@ -140,5 +121,17 @@ class Logo extends Model implements TranslatableContract
         }
 
         return $data;
+    }
+    public function getSystemImage(): string
+    {
+        return AdminHelper::getSystemImage(self::$LOGO_SYSTEM_IMAGE);
+    }
+    public function getFilepath($filename): string
+    {
+        return $this->getFilesPath() . $filename;
+    }
+    public function getFilesPath(): string
+    {
+        return self::FILES_PATH . '/' . $this->id . '/';
     }
 }
