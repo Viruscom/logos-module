@@ -1,7 +1,6 @@
 @php
     use Modules\Logos\Models\Logo;
-@endphp
-@extends('layouts.admin.app')
+@endphp@extends('layouts.admin.app')
 @section('styles')
     <link href="{{ asset('admin/css/select2.min.css') }}" rel="stylesheet"/>
 @endsection
@@ -46,7 +45,7 @@
                 <div class="action-mass-buttons pull-right">
                     <button type="submit" name="submitaddnew" value="submitaddnew" class="btn btn-lg green saveplusicon margin-bottom-10"></button>
                     <button type="submit" name="submit" value="submit" class="btn btn-lg save-btn margin-bottom-10"><i class="fas fa-save"></i></button>
-                    <a href="{{ url('/admin/icons') }}" role="button" class="btn btn-lg back-btn margin-bottom-10"><i class="fa fa-reply"></i></a>
+                    <a href="{{ url()->previous() }}" role="button" class="btn btn-lg back-btn margin-bottom-10"><i class="fa fa-reply"></i></a>
                 </div>
             </div>
     </div>
@@ -60,9 +59,9 @@
             <div class="tab-content">
                 @foreach($languages as $language)
                         <?php
-                        $langTitle = 'title_' . $language->code;
+                        $langTitle      = 'title_' . $language->code;
                         $langShortDescr = 'short_description_' . $language->code;
-                        $langLink = 'url_' . $language->code;
+                        $langLink       = 'url_' . $language->code;
                         ?>
                     @php
                         $iconTranslate = is_null($icon->translate($language->code)) ? $icon : $icon->translate($language->code);
