@@ -19,7 +19,7 @@
         {
             $this->trimInput();
             $array = [
-                'image' => 'required'
+                //                'image' => 'required'
             ];
 
             foreach ($this->LANGUAGES as $language) {
@@ -38,7 +38,7 @@
         public function messages()
         {
             $messages = [
-                //            'image.required' => trans('logos::admin.logos.image_required')
+                'image.required' => trans('logos::admin.logos.image_required')
             ];
 
             foreach ($this->LANGUAGES as $language) {

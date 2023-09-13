@@ -116,6 +116,9 @@
                         <label class="control-label col-md-3"><span class="text-purple">* </span>{{ __('logos::admin.logos.icon') }}:</label>
                         <div class="col-md-6">
                             <input type="file" name="image" class="filestyle form-control" data-buttonText="{{trans('admin.browse_file')}}" data-iconName="fas fa-upload" data-buttonName="btn green" data-badge="true">
+                            <div>
+                                <img class="thumbnail img-responsive" src="{{ $icon->getFileUrl() }}" width="300" alt="{{ __('admin.image') }}"/>
+                            </div>
                         </div>
                     </div>
                     <hr>
