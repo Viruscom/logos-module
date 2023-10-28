@@ -56,7 +56,7 @@
                     return view('logos::admin.logos.error_show');
                 }
                 $languages      = LanguageHelper::getActiveLanguages();
-                $model['Logos'] = Logo::getCollections($model);
+                $model['Logos'] = Logo::getAdminCollections($model);
 
                 return view('logos::admin.logos.show', ['moduleName' => $splitPath[0], 'modelPath' => $modelClass, 'model' => $model, 'languages' => $languages]);
             }
