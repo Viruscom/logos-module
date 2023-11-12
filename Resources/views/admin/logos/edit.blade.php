@@ -39,7 +39,7 @@
     <div class="col-xs-12 p-0">
         <form class="my-form" action="{{ route('admin.logos.update', ['id' => $icon->id]) }}" method="POST" data-form-type="store" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="hidden" name="position" value="{{old('position')}}">
+            <input type="hidden" name="position" value="{{$icon->position}}">
             <input type="hidden" name="icon_set_id" value="0">
             <div class="bg-grey top-search-bar">
                 <div class="action-mass-buttons pull-right">
