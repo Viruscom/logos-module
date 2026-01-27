@@ -109,30 +109,40 @@
 
         public static function generatePosition($request): int
         {
-            $splitPath = explode("-", decrypt($request->path));
+            return \Illuminate\Support\Facades\DB::transaction(function () use ($request) {
+                $splitPath = explode("-", decrypt($request->path));
 
-            $icons = self::where('module', $splitPath[0])
-                ->where('model', $splitPath[1])
-                ->where('model_id', $splitPath[2])
-                ->where('main_position', $request->main_position)->orderBy('position', 'desc')->get();
-            if (count($icons) < 1) {
-                return 1;
-            }
-            if (!$request->has('position') || is_null($request['position'])) {
-                return $icons->first()->position + 1;
-            }
+                $icons = self::where('module', $splitPath[0])
+                    ->where('model', $splitPath[1])
+                    ->where('model_id', $splitPath[2])
+                    ->where('main_position', $request->main_position)
+                    ->orderBy('position', 'desc')
+                    ->lockForUpdate()
+                    ->get();
+                
+                if (count($icons) < 1) {
+                    return 1;
+                }
+                
+                if (!$request->has('position') || is_null($request['position'])) {
+                    return $icons->first()->position + 1;
+                }
 
-            if ($request['position'] > $icons->first()->position) {
-                return $icons->first()->position + 1;
-            }
+                if ($request['position'] > $icons->first()->position) {
+                    return $icons->first()->position + 1;
+                }
 
-            $iconsUpdate = self::where('module', $splitPath[0])
-                ->where('model', $splitPath[1])
-                ->where('model_id', $splitPath[2])
-                ->where('main_position', $request->main_position)->where('position', '>=', $request['position'])->get();
-            self::updateLogosPosition($iconsUpdate, true);
+                $iconsUpdate = self::where('module', $splitPath[0])
+                    ->where('model', $splitPath[1])
+                    ->where('model_id', $splitPath[2])
+                    ->where('main_position', $request->main_position)
+                    ->where('position', '>=', $request['position'])
+                    ->lockForUpdate()
+                    ->get();
+                self::updateLogosPosition($iconsUpdate, true);
 
-            return $request['position'];
+                return $request['position'];
+            });
         }
 
         private static function updateLogosPosition($icons, $increment = true): void

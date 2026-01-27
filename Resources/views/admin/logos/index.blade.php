@@ -46,7 +46,9 @@
                         @foreach($internalLinks as $keyModule => $module)
                             <optgroup label="{{ $module['name'] }}">
                                 @foreach($module['links'] as $link)
-                                    <option value="{{ old('url') ?: $link->url }}" module="{{Str::plural($keyModule, 1)}}" model="{{ get_class($link) }}" model_id="{{ $link->id }}">{{ $link->title }}</option>
+                                    @if(is_object($link) && !is_null($link))
+                                        <option value="{{ old('url') ?: $link->url }}" module="{{Str::plural($keyModule, 1)}}" model="{{ get_class($link) }}" model_id="{{ $link->id }}">{{ $link->title }}</option>
+                                    @endif
                                 @endforeach
                             </optgroup>
                         @endforeach
